@@ -1,6 +1,6 @@
 "use client";
 import { useAuthStore } from "@/store/Auth"
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const Layout = ({children}: {children: React.ReactNode}) => {
@@ -8,14 +8,14 @@ const Layout = ({children}: {children: React.ReactNode}) => {
     const router = useRouter();
 
     React.useEffect(() => {
+        console.log("Layout useEffect - Session state:", session);
         if(session){
+            console.log("Redirecting to homepage due to existing session");
             router.push("/")
         }
     }, [session, router])
 
-    if(session){
-        return null
-    }
+    console.log("Layout rendering - Session state:", session);
 
     return(
         <div className="">
@@ -23,7 +23,5 @@ const Layout = ({children}: {children: React.ReactNode}) => {
         </div>
     )
 }
-
-
 
 export default Layout
